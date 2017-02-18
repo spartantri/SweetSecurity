@@ -3,6 +3,10 @@
 
 Scripts to setup and install Bro IDS, Elastic Search, Logstash, Kibana, and Critical Stack on a Raspberry Pi 3 device.
 
+New Features:
+  * Added ossec
+  * Added snort
+  
 Fixes:
   * node versus nodejs-legacy package incompatabilities
   * . /etc/init.d/functions updated to . /lib/lsb/init-functions
