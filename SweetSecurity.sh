@@ -26,7 +26,8 @@ sudo apt-get install -y --force-yes build-essential libpcre3-dev libdumbnet-dev 
 sudo apt-get install -y --force-yes cmake make gcc g++ libpcap-dev libssl-dev python-dev cmake-data libarchive13 liblzo2-2
 sudo apt-get install -y --force-yes swig ant zip nmap texinfo bison flex openssl
 sudo apt-get install -y --force-yes openjdk-8-jdk
-
+echo "export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-armhf/jre/bin\"" |sudo tee -a /etc/bash.bashrc
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-armhf/jre/bin"
 
 
 #Instal Snort
