@@ -1,4 +1,5 @@
 # SweetSecurity - Raspberry Pi 3 Edition
+# forked from TravisFSmith/SweetSecurity
 
 Scripts to setup and install Bro IDS, Elastic Search, Logstash, Kibana, and Critical Stack on a Raspberry Pi 3 device.
 
