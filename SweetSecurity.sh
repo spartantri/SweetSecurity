@@ -202,7 +202,7 @@ if [[ $(dpkg --print-architecture) = armrh ]] || [[ $(dpkg --print-architecture)
    sudo rm node_latest_armhf.deb
 fi
 sudo cp SweetSecurity/init.d/kibana /etc/init.d
-sudo chmod 755 /etc/init.d/kibana
+sudo chmod 555 /etc/init.d/kibana
 sudo update-rc.d kibana defaults
 
 #Configure Scripts
