@@ -10,7 +10,7 @@ smtpPort=${smtpPort:-587}
 read -p "Enter Email Address (email@gmail.com): " emailAddr
 emailAddr=${emailAddr:-email@google.com}
 
-read -p "Enter Email Password (P@55word): " emailPwd
+IFS= read -p "Enter Email Password (P@55word): " emailPwd
 emailPwd=${emailPwd:-P@55word}
 
 
