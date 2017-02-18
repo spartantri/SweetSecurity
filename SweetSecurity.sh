@@ -20,7 +20,7 @@ home_path="/home/pi"
 cd $home_path
 
 echo "Installing Pre-Requisites..."
-sudo apt-get -y install ntp git cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev ant zip nmap ant texinfo openjdk-8-jdk
+sudo apt-get -y install ntp git cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev ant zip nmap ant texinfo openjdk-8-jdk cmake cmake-data libarchive13 liblzo2-2
 sudo apt-get install -y --force-yes build-essential libpcap-dev libpcre3-dev libdumbnet-dev bison flex zlib1g-dev liblzma-dev openssl libssl-dev
 
 
