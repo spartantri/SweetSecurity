@@ -82,9 +82,7 @@ if [ $? != 0 ]; then
    sudo ln -s /opt/nsm/bro/bin/bro /usr/bin/bro
    sudo ln -s /opt/nsm/bro/bin/broctl /usr/bin/broctl
    sudo ln -s /opt/nsm/bro/share/bro/site /etc/bro/site
-   sudo mkdir /var/log/bro
-   sudo mkdir /var/spool/bro
-   sudo chmod 755 /var/log/bro /var/spool/bro
+   sudo ln -s /opt/nsm/bro/logs /var/log/bro
    sudo sed -i -- 's,LogDir.*,LogDir = /var/log/bro,g' /etc/bro/broctl.cfg
    sudo sed -i -- 's,SpoolDir.*,SpoolDir = /var/spool/bro,g' /etc/bro/broctl.cfg
 fi
