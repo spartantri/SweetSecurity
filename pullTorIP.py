@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import urllib2, os
 
 url = 'https://check.torproject.org/exit-addresses'

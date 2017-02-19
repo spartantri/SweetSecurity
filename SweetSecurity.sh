@@ -26,7 +26,7 @@ sudo apt-get install -y --force-yes build-essential libpcre3-dev libdumbnet-dev 
 sudo apt-get install -y --force-yes cmake make gcc g++ libpcap-dev libssl-dev python-dev cmake-data libarchive13 liblzo2-2
 sudo apt-get install -y --force-yes swig ant zip nmap texinfo bison flex openssl
 sudo apt-get install -y --force-yes openjdk-8-jdk
-echo "export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-armhf/jre/bin\"" |sudo tee -a /etc/bash.bashrc
+echo "export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-armhf/jre/bin\"" |sudo tee -a /etc/bash.bashrc0
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-armhf/jre/bin"
 
 
@@ -82,9 +82,7 @@ if [ $? != 0 ]; then
    sudo ln -s /opt/nsm/bro/bin/bro /usr/bin/bro
    sudo ln -s /opt/nsm/bro/bin/broctl /usr/bin/broctl
    sudo ln -s /opt/nsm/bro/share/bro/site /etc/bro/site
-   sudo mkdir /var/log/bro
-   sudo mkdir /var/spool/bro
-   sudo chmod 755 /var/log/bro /var/spool/bro
+   sudo ln -s /opt/nsm/bro/logs /var/log/bro
    sudo sed -i -- 's,LogDir.*,LogDir = /var/log/bro,g' /etc/bro/broctl.cfg
    sudo sed -i -- 's,SpoolDir.*,SpoolDir = /var/spool/bro,g' /etc/bro/broctl.cfg
 fi
@@ -134,7 +132,7 @@ fi
 sudo service elasticsearch start
 sudo update-rc.d elasticsearch defaults
 #Test if Elastic search is working with the following command:
-curl -X GET http://127.0.0.1:9200; if [ $? = 0 ]; then echo "Elastic OK"; fi
+curl -X GET http://127.0.0.1:9100; if [ $? = 0 ]; then echo "ElasticSearch engine OK"; else echo "ElasticSearch engine KO"; fi
 
 
 #Install LogStash
@@ -230,6 +228,10 @@ sudo sed -i -- 's/SMTP_HOST/"$smtpHost"/g' /opt/SweetSecurity/networkDiscovery.p
 sudo sed -i -- 's/SMTP_PORT/"$smtpPort"/g' /opt/SweetSecurity/networkDiscovery.py
 sudo sed -i -- 's/EMAIL_USER/"$emailAddr"/g' /opt/SweetSecurity/networkDiscovery.py
 sudo sed -i -- 's/EMAIL_PASS/"$emailPwd"/g' /opt/SweetSecurity/networkDiscovery.py
+sudo chmod +x /opt/SweetSecurity/networkDiscovery.py
+sudo chmod +x /opt/SweetSecurity/SweetSecurityDB.py
+sudo chmod +x /opt/SweetSecurity/pullTorIP.py
+sudo chmod +x /opt/SweetSecurity/pullMaliciousIP.py
 
 sudo sed -i -- 's/--no-warnings//g' /opt/kibana/bin/kibana
 
