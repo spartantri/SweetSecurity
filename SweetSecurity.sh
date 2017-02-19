@@ -69,15 +69,16 @@ sudo apt-get -y install bro broctl
 if [ $? != 0 ]; then
    sudo wget https://www.bro.org/downloads/bro-2.5.tar.gz
    sudo tar -xzf bro-2.5.tar.gz
-   sudo mkdir /opt/nsm
-   sudo mkdir /opt/nsm/bro
+   sudo mkdir -p /opt/nsm/bro
+   sudo mkdir /etc/bro
    cd bro-2.5
    sudo ./configure --prefix=/opt/nsm/bro
-   sudo make     
+   sudo make
    sudo make install
    cd ..
    sudo rm bro-2.5.tar.gz
    sudo rm -rf bro-2.5/
+   for i in $(ls /opt/nsm/bro/etc/); do sudo ln -s /opt/nsm/bro/etc/$i /etc/bro/$i ; done
    sudo ln -s /opt/nsm/bro/bin/bro /usr/bin/bro
    sudo ln -s /opt/nsm/bro/bin/broctl /usr/bin/broctl
    sudo ln -s /opt/nsm/bro/share/bro/site /etc/bro/site
