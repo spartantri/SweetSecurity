@@ -122,15 +122,16 @@ sudo wget ${es_package_url}${es_package}
 sudo dpkg -i $es_package
 sudo rm $es_package
 if [[ $(dpkg --print-architecture) = armrh ]] || [[ $(dpkg --print-architecture) = armhf ]]; then
-   sudo ln -s /var/log/elasticsearch/ data
-   sudo ln -s /var/log/elasticsearch/ log
-   sudo ln -s /etc/elasticsearch/ config
-   sudo rm -f /var/log/elasticsearch/elasticsearch
-   sudo rm -f /etc/elasticsearch/elasticsearch
+   #sudo ln -s /var/log/elasticsearch/ data
+   #sudo ln -s /var/log/elasticsearch/ log
+   #sudo ln -s /etc/elasticsearch/ config
+   #sudo rm -f /var/log/elasticsearch/elasticsearch
+   #sudo rm -f /etc/elasticsearch/elasticsearch
    sudo sed -i -- 's,# path\.logs.*, path\.logs: /var/log/elasticsearch/elasticsearch,g' /etc/elasticsearch/elasticsearch.yml
    sudo sed -i -- 's,# path\.data.*, path\.data: /var/log/elasticsearch/elasticsearch,g' /etc/elasticsearch/elasticsearch.yml
    sudo sed -i -- 's,# cluster\.name.*, cluster\.name: Wolverine,g' /etc/elasticsearch/elasticsearch.yml
 fi
+sudo service elasticsearch start
 sudo update-rc.d elasticsearch defaults
 #Test if Elastic search is working with the following command:
 curl -X GET http://127.0.0.1:9200; if [ $? = 0 ]; then echo "Elastic OK"; fi
