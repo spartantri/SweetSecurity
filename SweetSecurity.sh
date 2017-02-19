@@ -228,6 +228,10 @@ sudo sed -i -- 's/SMTP_HOST/"$smtpHost"/g' /opt/SweetSecurity/networkDiscovery.p
 sudo sed -i -- 's/SMTP_PORT/"$smtpPort"/g' /opt/SweetSecurity/networkDiscovery.py
 sudo sed -i -- 's/EMAIL_USER/"$emailAddr"/g' /opt/SweetSecurity/networkDiscovery.py
 sudo sed -i -- 's/EMAIL_PASS/"$emailPwd"/g' /opt/SweetSecurity/networkDiscovery.py
+sudo chmod +x /opt/SweetSecurity/networkDiscovery.py
+sudo chmod +x /opt/SweetSecurity/SweetSecurityDB.py
+sudo chmod +x /opt/SweetSecurity/pullTorIP.py
+sudo chmod +x /opt/SweetSecurity/pullMaliciousIP.py
 
 sudo sed -i -- 's/--no-warnings//g' /opt/kibana/bin/kibana
 
