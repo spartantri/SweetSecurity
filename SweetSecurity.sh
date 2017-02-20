@@ -99,7 +99,7 @@ if [ $? != 0 ]; then
    sudo sed -i -- 's,LogDir.*,LogDir = /var/log/bro,g' /etc/bro/broctl.cfg
    sudo sed -i -- 's,SpoolDir.*,SpoolDir = /var/spool/bro,g' /etc/bro/broctl.cfg
 fi
-
+sudo cp $my_path/node.cfg /opt/nsm/bro/etc/node.cfg
 
 #Install Critical Stack
 echo "Installing Critical Stack Agent"
