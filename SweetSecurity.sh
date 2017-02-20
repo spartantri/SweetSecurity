@@ -1,14 +1,14 @@
 echo "Please enter your Critical Stack API Key: "
 read cs_api
 
-read -p "Enter SMTP Host (smtp.google.com): " smtpHost
-smtpHost=${smtpHost:-smtp.google.com}
+read -p "Enter SMTP Host (smtp.gmail.com): " smtpHost
+smtpHost=${smtpHost:-smtp.gmail.com}
 
 read -p "Enter SMTP Port (587): " smtpPort
 smtpPort=${smtpPort:-587}
 
 read -p "Enter Email Address (email@gmail.com): " emailAddr
-emailAddr=${emailAddr:-email@google.com}
+emailAddr=${emailAddr:-email@gmail.com}
 
 IFS= read -p "Enter Email Password (P@55word): " emailPwd
 emailPwd=${emailPwd:-P@55word}
@@ -26,6 +26,7 @@ sudo apt-get install -y --force-yes build-essential libpcre3-dev libdumbnet-dev 
 sudo apt-get install -y --force-yes cmake make gcc g++ libpcap-dev libssl-dev python-dev cmake-data libarchive13 liblzo2-2
 sudo apt-get install -y --force-yes swig ant zip nmap texinfo bison flex openssl
 sudo apt-get install -y --force-yes openjdk-8-jdk
+sudo apt-get install -y --force-yes arpwatch
 echo "export JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-armhf/jre/bin\"" |sudo tee -a /etc/bash.bashrc0
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-armhf/jre/bin"
 
@@ -53,12 +54,13 @@ sudo chown -R snort:snort /usr/lib/snort
 cd $home_path
 sudo wget https://bintray.com/artifact/download/ossec/ossec-hids/ossec-hids-2.8.3.tar.gz
 sudo tar -zxvf ossec-hids-2.8.3.tar.gz
-sudo mkdir /etc/ossec
+sudo ln -s /opt/ossec/etc /etc/ossec
+sudo ln -s /opt/ossec/logs /var/log/ossec
 sudo cp preloaded-vars.conf $home_path/ossec-hids-2.8.3/etc
 sudo sed -ir -- 's/\(USER_EMAIL_ADDRESS\)=.*/\1="$emailAddr"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
 sudo sed -ir -- 's/\(USER_EMAIL_SMTP\)=.*/\1="$smtpHost:$smtpPort"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
 sudo sed -ir -- 's/\(<email_to>\).*\(<\/email_to>\)/\1$emailAddr\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
-sudo sed -ir -- 's/\(<smtp_server>\).*\(<\/smtp_server>\)/\1$smtpHost:$smtpPort\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
+sudo sed -ir -- 's/\(<smtp_server>\).*\(<\/smtp_server>\)/\1$smtpHost\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
 sudo sed -ir -- 's/\(<email_from>\).*\(<\/email_from>\)/\1$emailAddr\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
 
 sudo $home_path/ossec-hids-2.8.3/install.sh
@@ -68,7 +70,8 @@ sudo rm -f ossec-hids-2.8.3.tar.gz
 cd /etc/ossec
 sudo sed -i -- '/.*windows.*$/Id' /etc/ossec/ossec.conf
 #Add policy to monitor all snort, bro, logstash, elasticsearch and kibana configurations
-
+sudo service ossec start
+sudo update-rc.d ossec defaults
 
 #Install Bro
 echo "Installing Bro"
