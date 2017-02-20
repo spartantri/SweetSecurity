@@ -15,6 +15,7 @@ emailPwd=${emailPwd:-P@55word}
 
 
 home_path="/home/pi"
+my_path=`dirname $0`
 
 
 cd $home_path
@@ -56,7 +57,7 @@ sudo wget https://bintray.com/artifact/download/ossec/ossec-hids/ossec-hids-2.8.
 sudo tar -zxvf ossec-hids-2.8.3.tar.gz
 sudo ln -s /opt/ossec/etc /etc/ossec
 sudo ln -s /opt/ossec/logs /var/log/ossec
-sudo cp preloaded-vars.conf $home_path/ossec-hids-2.8.3/etc
+sudo cp $my_path/preloaded-vars.conf $home_path/ossec-hids-2.8.3/etc
 sudo sed -ir -- 's/\(USER_EMAIL_ADDRESS\)=.*/\1="$emailAddr"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
 sudo sed -ir -- 's/\(USER_EMAIL_SMTP\)=.*/\1="$smtpHost:$smtpPort"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
 sudo sed -ir -- 's/\(<email_to>\).*\(<\/email_to>\)/\1$emailAddr\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
@@ -182,9 +183,9 @@ else
    sudo /usr/share/logstash/bin/logstash-plugin install logstash-filter-translate
    sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-email
 fi
-sudo cp SweetSecurity/logstash.conf /etc/logstash/conf.d
+sudo cp $my_path/logstash.conf /etc/logstash/conf.d
 sudo mkdir /etc/logstash/custom_patterns
-sudo cp SweetSecurity/bro.rule /etc/logstash/custom_patterns
+sudo cp $my_path/bro.rule /etc/logstash/custom_patterns
 sudo mkdir /etc/logstash/translate
 
 #Install Kibana
@@ -211,14 +212,14 @@ if [[ $(dpkg --print-architecture) = armrh ]] || [[ $(dpkg --print-architecture)
    sudo ln -s /usr/local/bin/npm /opt/kibana/node/bin/npm
    sudo rm node_latest_armhf.deb
 fi
-sudo cp SweetSecurity/init.d/kibana /etc/init.d
+sudo cp $my_path/init.d/kibana /etc/init.d
 sudo chmod 555 /etc/init.d/kibana
 sudo update-rc.d kibana defaults
 
 #Configure Scripts
 sudo mkdir /opt/SweetSecurity
-sudo cp SweetSecurity/pullMaliciousIP.py /opt/SweetSecurity/
-sudo cp SweetSecurity/pullTorIP.py /opt/SweetSecurity/
+sudo cp $my_path/pullMaliciousIP.py /opt/SweetSecurity/
+sudo cp $my_path/pullTorIP.py /opt/SweetSecurity/
 #Run scripts for the first time
 sudo python /opt/SweetSecurity/pullTorIP.py
 sudo python /opt/SweetSecurity/pullMaliciousIP.py
@@ -230,9 +231,9 @@ sudo sed -i -- 's/EMAIL_USER/"$emailAddr"/g' /etc/logstash/conf.d/logstash.conf
 sudo sed -i -- 's/EMAIL_PASS/"$emailPwd"/g' /etc/logstash/conf.d/logstash.conf
 
 
-cd $home_path
-sudo cp SweetSecurity/networkDiscovery.py /opt/SweetSecurity/networkDiscovery.py
-sudo cp SweetSecurity/SweetSecurityDB.py /opt/SweetSecurity/SweetSecurityDB.py
+cd $my_path
+sudo cp networkDiscovery.py /opt/SweetSecurity/networkDiscovery.py
+sudo cp SweetSecurityDB.py /opt/SweetSecurity/SweetSecurityDB.py
 #Configure Network Discovery Scripts
 sudo sed -i -- 's/SMTP_HOST/"$smtpHost"/g' /opt/SweetSecurity/networkDiscovery.py
 sudo sed -i -- 's/SMTP_PORT/"$smtpPort"/g' /opt/SweetSecurity/networkDiscovery.py
