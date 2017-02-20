@@ -57,6 +57,10 @@ sudo mkdir /etc/ossec
 sudo cp preloaded-vars.conf $home_path/ossec-hids-2.8.3/etc
 sudo sed -ir -- 's/\(USER_EMAIL_ADDRESS\)=.*/\1="$emailAddr"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
 sudo sed -ir -- 's/\(USER_EMAIL_SMTP\)=.*/\1="$smtpHost:$smtpPort"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
+sudo sed -ir -- 's/\(<email_to>\).*\(<\/email_to>\)/\1$emailAddr\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
+sudo sed -ir -- 's/\(<smtp_server>\).*\(<\/smtp_server>\)/\1$smtpHost:$smtpPort\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
+sudo sed -ir -- 's/\(<email_from>\).*\(<\/email_from>\)/\1$emailAddr\2/g' $home_path/ossec-hids-2.8.3/etc/ossec.conf
+
 sudo $home_path/ossec-hids-2.8.3/install.sh
 for x in $(sudo ls /var/ossec/etc); do sudo ln -s /var/ossec/etc/$x /etc/ossec/$x; done
 sudo rm -rf ossec-hids-2.8.3
