@@ -54,7 +54,10 @@ cd $home_path
 sudo wget https://bintray.com/artifact/download/ossec/ossec-hids/ossec-hids-2.8.3.tar.gz
 sudo tar -zxvf ossec-hids-2.8.3.tar.gz
 sudo mkdir /etc/ossec
-sudo ./install.sh
+sudo cp preloaded-vars.conf $home_path/ossec-hids-2.8.3/etc
+sudo sed -ir -- 's/\(USER_EMAIL_ADDRESS\)=.*/\1="$emailAddr"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
+sudo sed -ir -- 's/\(USER_EMAIL_SMTP\)=.*/\1="$smtpHost:$smtpPort"/g' $home_path/ossec-hids-2.8.3/etc/preloaded-vars.conf
+sudo $home_path/ossec-hids-2.8.3/install.sh
 for x in $(sudo ls /var/ossec/etc); do sudo ln -s /var/ossec/etc/$x /etc/ossec/$x; done
 sudo rm -rf ossec-hids-2.8.3
 sudo rm -f ossec-hids-2.8.3.tar.gz
