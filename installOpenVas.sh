@@ -1,3 +1,4 @@
+#!/bin/bash
 #Following the steps outlined here: http://g3zarstudios.com/blog/openvas7-on-raspberry-pi/
 
 
