@@ -69,7 +69,7 @@ sudo ldconfig
 sudo openvas-mkcert
 sudo openvassd
 #build in logic to look for waiting for connections from 'ps -aef | grep openvassd
-sudo openvasmd —rebuild —progress
+sudo openvasmd -rebuild -progress
 sudo openvasmd --update
 sudo openvasmd --migrate
 sudo openvasmd -rebuild -progress
