@@ -15,7 +15,9 @@ emailPwd=${emailPwd:-P@55word}
 
 
 home_path="/home/pi"
-my_path=`dirname $0`
+current_path=`pwd`
+cd dirname $0
+my_path=`pwd`
 
 
 cd $home_path
@@ -257,3 +259,5 @@ sudo service logstash restart
 echo "Deploying and starting BroIDS"
 sudo /usr/bin/broctl deploy
 sudo /usr/bin/broctl start
+
+cd $current_path
