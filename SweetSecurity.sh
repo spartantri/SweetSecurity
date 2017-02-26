@@ -16,13 +16,13 @@ emailPwd=${emailPwd:-P@55word}
 
 home_path="/home/pi"
 current_path=`pwd`
-cd dirname $0
-my_path=`pwd`
+my_path="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 
 cd $home_path
 
 echo "Installing Pre-Requisites..."
+#sleep 60
 sudo apt-get update 
 sudo apt-get install -y ntp git
 sudo apt-get install -y --force-yes build-essential libpcre3-dev libdumbnet-dev zlib1g-dev liblzma-dev
@@ -143,7 +143,7 @@ if [[ $(dpkg --print-architecture) = armrh ]] || [[ $(dpkg --print-architecture)
    sudo sed -i -- 's,# cluster\.name.*, cluster\.name: Wolverine,g' /etc/elasticsearch/elasticsearch.yml
 fi
 sudo service elasticsearch start
-sudo update-rc.d elasticsearch defaults
+#sudo update-rc.d elasticsearch defaults
 #Test if Elastic search is working with the following command:
 curl -X GET http://127.0.0.1:9100; if [ $? = 0 ]; then echo "ElasticSearch engine OK"; else echo "ElasticSearch engine KO"; fi
 
@@ -176,7 +176,7 @@ if [[ $(dpkg --print-architecture) = armrh ]] || [[ $(dpkg --print-architecture)
    sudo rm -rf jffi/
 fi
 
-sudo update-rc.d logstash defaults
+#sudo update-rc.d logstash defaults
 
 if [[ $(dpkg --print-architecture) = armrh ]] || [[ $(dpkg --print-architecture) = armhf ]]; then
    sudo /opt/logstash/bin/logstash-plugin install logstash-filter-translate
@@ -216,7 +216,7 @@ if [[ $(dpkg --print-architecture) = armrh ]] || [[ $(dpkg --print-architecture)
 fi
 sudo cp $my_path/init.d/kibana /etc/init.d
 sudo chmod 555 /etc/init.d/kibana
-sudo update-rc.d kibana defaults
+#sudo update-rc.d kibana defaults
 
 #Configure Scripts
 sudo mkdir /opt/SweetSecurity
