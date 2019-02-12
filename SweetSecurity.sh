@@ -110,6 +110,15 @@ if [ $? != 0 ]; then
 fi
 sudo cp $my_path/node.cfg /opt/nsm/bro/etc/node.cfg
 
+#Install pihole
+echo "Installing Pi-hole"
+cd $home_path
+pihole_path="${home_path}/Pi-hole"
+git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole
+cd "${pihole_path}/automated install/"
+sudo bash basic-install.sh
+#sudo rm -rf $pihole_path
+
 #Install Critical Stack
 echo "Installing Critical Stack Agent"
 cs_package_url="https://intel.criticalstack.com/client/"
