@@ -73,7 +73,7 @@ sudo sed -i -- "s/\(<smtp_server>\).*\(<\/smtp_server>\)/\1${smtpHost}\2/g" $pat
 sudo sed -i -- "s/\(<email_from>\).*\(<\/email_from>\)/\1${emailAddr}\2/g" $path_ossec/etc/ossec.conf
 
 sudo $path_ossec/install.sh
-for x in $(sudo ls /var/ossec/etc); do sudo ln -s /var/ossec/etc/$x /etc/ossec/$x; done
+#for x in $(sudo ls /opt/ossec/etc); do sudo ln -s /opt/ossec/etc/$x /etc/ossec/$x; done
 sudo rm -rf $path_ossec
 sudo rm -f ossec-hids-3.2.0.tar.gz
 cd /etc/ossec
